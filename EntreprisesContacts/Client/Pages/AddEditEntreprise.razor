@@ -1,0 +1,78 @@
+﻿@page "/entreprise/add"
+@page "/entreprise/edit/{entID:int}"
+@inherits AddEditEntrepriseBase
+
+<h1>@Title Entreprise</h1>
+<hr />
+
+<EditForm Model="@ent" OnValidSubmit="SaveEntreprise">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label for="Name" class="form-label">Name</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="ent.Name" />
+        </div>
+        <ValidationMessage For="@(() => ent.Name)" />
+    </div>
+    <div class="mb-3">
+        <label for="Description" class="form-label">Description</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="ent.Description" />
+        </div>
+        <ValidationMessage For="@(() => ent.Description)" />
+    </div>
+    <div class="mb-3">
+        <label for="FirstAdress" class="form-label">FirstAdress</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="ent.FirstAdress" />
+        </div>
+        <ValidationMessage For="@(() => ent.FirstAdress)" />
+    </div>
+    <div class="mb-3">
+        <label for="SecondAdress" class="form-label">SecondAdress</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="ent.SecondAdress" />
+        </div>
+        <ValidationMessage For="@(() => ent.SecondAdress)" />
+    </div>
+    <div class="mb-3">
+        <label for="Zip" class="form-label">Zip</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="ent.Zip" />
+        </div>
+        <ValidationMessage For="@(() => ent.Zip)" />
+    </div>
+    <div class="mb-3">
+        <label for="City" class="form-label">City</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="ent.City" />
+        </div>
+        <ValidationMessage For="@(() => ent.City)" />
+    </div>
+    <div class="mb-3">
+        <label for="Zip" class="form-label">Country</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="ent.Country" />
+        </div>
+        <ValidationMessage For="@(() => ent.Country)" />
+    </div>
+    <div class="mb-3">
+        <label for="Phone" class="form-label">Phone</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="ent.Phone" />
+        </div>
+        <ValidationMessage For="@(() => ent.Phone)" />
+    </div>
+    <div class="mb-3">
+        <label for="Picture" class="form-label">Picture</label>
+        <InputFile class="form-control" id="entthumbnail"  OnChange="@OnInputFileChange" />
+        <br />
+        <div class="col-md-4">
+             <img src="@ent.thumbnail" height="200px" width="200px">
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button class="btn btn-light" @onclick="Cancel">Cancel</button>
+    </div>
+</EditForm>

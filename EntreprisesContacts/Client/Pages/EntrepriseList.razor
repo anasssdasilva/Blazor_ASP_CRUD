@@ -1,0 +1,163 @@
+﻿@page "/entrepriselist"
+@using EntreprisesContacts.Shared.Models
+
+
+<h1>Entreprise Data</h1>
+<p>This component demonstrates CRUD operation on Entreprise data</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <a href='/entreprise/add' class="btn btn-primary" role="button">
+            <i class="fa fa-building"></i>
+            Add Entreprise
+        </a>
+    </div>
+    <div class="input-group col">
+        <input type="text" class="form-control" placeholder="Search entreprise by name"
+               @bind="SearchString" @bind:event="oninput" @onkeyup="FilterEnt" />
+        @if (SearchString.Length > 0)
+        {
+            <div class="input-group-append">
+                <button class="btn btn-danger" @onclick="ResetSearch">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        }
+    </div>
+</div>
+<br />
+
+@if (entList == null)
+{
+    <p><em>No entreprises to display</em></p>
+}
+else
+{
+    <table class="table table-striped align-middle table-bordered">
+        <thead class="table-success">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>FirstAdress</th>
+                <th>City</th>
+                <th>Picture</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ent in entList)
+            {
+                <tr>
+                    <td>@ent.Name</td>
+                    <td>@ent.Description</td>
+                    <td>@ent.FirstAdress</td>
+                    <td>@ent.City</td>
+                    <td>
+                        <img src="@ent.thumbnail" alt="" width="42" height="42" class="rounded-circle me-2">
+                    </td>
+                    <td>
+                        <a href='/entreprise/edit/@ent.EntrepriseId' class="btn btn-outline-dark" role="button">
+                            Edit
+                        </a>
+                        <a href='/entreprise/details/@ent.EntrepriseId' class="btn btn-outline-dark" role="button">
+                            Details
+                        </a>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteEntModal"
+                                @onclick="(() => DeleteConfirm(ent.EntrepriseId))">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="deleteEntModal" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Delete Entreprise</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>Do you want to delete this entreprise?</h4>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Name</td>
+                                <td>@ent.Name</td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td>@ent.Description</td>
+                            </tr>
+                            <tr>
+                                <td>First Adress</td>
+                                <td>@ent.FirstAdress</td>
+                            </tr>
+                            <tr>
+                                <td>City</td>
+                                <td>@ent.City</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" @onclick="(async () => await DeleteEntreprise(ent.EntrepriseId))" data-bs-dismiss="modal">YES</button>
+                    <button class="btn btn-warning" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@code {
+    [Inject]
+    HttpClient Http { get; set; }
+
+    protected List<Entreprise> entList = new();
+    protected List<Entreprise> searchEntData = new();
+    protected Entreprise ent = new();
+    protected string SearchString { get; set; } = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetEntreprise();
+    }
+
+    protected async Task GetEntreprise()
+    {
+        entList = await Http.GetFromJsonAsync<List<Entreprise>>("api/Entreprise");
+        searchEntData = entList;
+    }
+
+    protected void FilterEnt()
+    {
+        if (!string.IsNullOrEmpty(SearchString))
+        {
+            entList = searchEntData
+                .Where(x => x.Name.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) != -1)
+                .ToList();
+        }
+        else
+        {
+            entList = searchEntData;
+        }
+    }
+
+    protected void DeleteConfirm(int entID)
+    {
+        ent = entList.FirstOrDefault(x => x.EntrepriseId == entID);
+    }
+
+    protected async Task DeleteEntreprise(int entID)
+    {
+        await Http.DeleteAsync("api/Entreprise/" + entID);
+        await GetEntreprise();
+    }
+
+    public void ResetSearch()
+    {
+        SearchString = string.Empty;
+        entList = searchEntData;
+    }
+}

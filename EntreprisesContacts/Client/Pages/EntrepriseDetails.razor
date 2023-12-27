@@ -1,0 +1,62 @@
+﻿@page "/entreprise/details/{entID:int}"
+@using EntreprisesContacts.Shared.Models
+
+<h1>Contacts list of @Title Entreprise</h1>
+<hr />
+<div class="mb-3">
+    @if (entID != 0)
+    {
+        @if (thecontList == null)
+        {
+            <p><em>No entreprises to display</em></p>
+        }
+        else
+        {
+            <table class="table table-striped align-middle table-bordered">
+                <thead class="table-success">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cont in thecontList)
+                    {
+                        <tr>
+                            <td>@cont.Firstname</td>
+                            <td>@cont.Lastname</td>
+                            <td>@cont.Phone</td>
+                            <td>@cont.Email</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+</div>
+@code {
+    [Inject]
+    HttpClient Http { get; set; }
+
+    protected List<Contact> thecontList = new();
+    protected string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public int entID { get; set; }
+    public Entreprise ent = new();
+
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (entID != 0)
+        {
+            ent = await Http.GetFromJsonAsync<Entreprise>("api/Entreprise/" + entID);
+            Title = ent.Name;
+            thecontList = await Http.GetFromJsonAsync<List<Contact>>("api/Entreprise/GetContactsByEntreprise/" + entID);
+        }
+    }
+
+}

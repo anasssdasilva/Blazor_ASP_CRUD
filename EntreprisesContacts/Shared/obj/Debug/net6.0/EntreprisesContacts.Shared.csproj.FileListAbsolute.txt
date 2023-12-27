@@ -1,0 +1,12 @@
+C:\Users\WhatNext\source\repos\EntreprisesContacts\EntreprisesContacts\Shared\bin\Debug\net6.0\EntreprisesContacts.Shared.deps.json
+C:\Users\WhatNext\source\repos\EntreprisesContacts\EntreprisesContacts\Shared\bin\Debug\net6.0\EntreprisesContacts.Shared.dll
+C:\Users\WhatNext\source\repos\EntreprisesContacts\EntreprisesContacts\Shared\bin\Debug\net6.0\EntreprisesContacts.Shared.pdb
+C:\Users\WhatNext\source\repos\EntreprisesContacts\EntreprisesContacts\Shared\obj\Debug\net6.0\EntreprisesContacts.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\WhatNext\source\repos\EntreprisesContacts\EntreprisesContacts\Shared\obj\Debug\net6.0\EntreprisesContacts.Shared.AssemblyInfoInputs.cache
+C:\Users\WhatNext\source\repos\EntreprisesContacts\EntreprisesContacts\Shared\obj\Debug\net6.0\EntreprisesContacts.Shared.AssemblyInfo.cs
+C:\Users\WhatNext\source\repos\EntreprisesContacts\EntreprisesContacts\Shared\obj\Debug\net6.0\EntreprisesContacts.Shared.csproj.CoreCompileInputs.cache
+C:\Users\WhatNext\source\repos\EntreprisesContacts\EntreprisesContacts\Shared\obj\Debug\net6.0\EntreprisesContacts.Shared.dll
+C:\Users\WhatNext\source\repos\EntreprisesContacts\EntreprisesContacts\Shared\obj\Debug\net6.0\refint\EntreprisesContacts.Shared.dll
+C:\Users\WhatNext\source\repos\EntreprisesContacts\EntreprisesContacts\Shared\obj\Debug\net6.0\EntreprisesContacts.Shared.pdb
+C:\Users\WhatNext\source\repos\EntreprisesContacts\EntreprisesContacts\Shared\obj\Debug\net6.0\ref\EntreprisesContacts.Shared.dll
+C:\Users\WhatNext\source\repos\EntreprisesContacts\EntreprisesContacts\Shared\obj\Debug\net6.0\EntreprisesContacts.Shared.csproj.AssemblyReference.cache

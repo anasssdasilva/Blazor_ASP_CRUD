@@ -1,0 +1,57 @@
+﻿@page "/contact/add"
+@page "/contact/edit/{contID:int}"
+@inherits AddEditContactBase
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Notifications
+
+<h1>@Title Contact</h1>
+<hr />
+
+<EditForm Model="@cont" OnValidSubmit="SaveContact">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label for="FirstName" class="form-label">First Name</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="cont.Firstname" />
+        </div>
+        <ValidationMessage For="@(() => cont.Firstname)" />
+    </div>
+    <div class="mb-3">
+        <label for="LastName" class="form-label">Last Name</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="cont.Lastname" />
+        </div>
+        <ValidationMessage For="@(() => cont.Lastname)" />
+    </div>
+    <div class="mb-3">
+        <label for="Phone" class="form-label">Phone</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="cont.Phone" />
+        </div>
+        <ValidationMessage For="@(() => cont.Phone)" />
+    </div>
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="cont.Email" />
+        </div>
+        <ValidationMessage For="@(() => cont.Email)" />
+    </div>
+    <div class="mb-3">
+        <label for="Entreprise" class="form-label">Entreprise</label>
+        <div class="col-md-4">
+            <InputSelect class="form-control" @bind-Value="cont.Entreprise">
+                <option value="-- Select Entreprise --">-- Select Entreprise --</option>
+                @foreach (var entreprise in entrepriseList)
+                {
+                    <option value="@entreprise.Name">@entreprise.Name</option>
+                }
+            </InputSelect>
+        </div>
+        <ValidationMessage For="@(() => cont.Entreprise)" />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button class="btn btn-light" @onclick="Cancel">Cancel</button>
+    </div>
+</EditForm>
